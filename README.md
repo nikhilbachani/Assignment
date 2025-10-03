@@ -1,27 +1,123 @@
-# PracticeApp
+# Clinic Management System
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.3.
+This project is a **Clinic Management System** designed to manage visits, invoices, and providers. It includes a backend API built with .NET and a frontend application built with Angular.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Project Structure
 
-## Code scaffolding
+```
+Assignment/
+├── Assignment.Backend/       # Backend API built with .NET
+│   ├── PracticeApi/          # Main API project
+│   └── PracticeApiTests/     # Unit tests for the API
+├── Assignment.Frontend/      # Frontend application built with Angular
+│   └── PracticeApp/          # Angular application
+└── docker-compose.yml        # Docker Compose configuration
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+## Features
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Home Page**: Displays scheduled visits for the day.
+- **Invoice Management**: View and manage visit invoices.
+- **Provider-Specific View**: Providers can view their scheduled visits.
+- **Reusable Components**: Components like the visits table are reusable across views.
 
-## Running unit tests
+---
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Prerequisites
 
-## Running end-to-end tests
+- **.NET SDK**: Install the .NET SDK from [Microsoft](https://dotnet.microsoft.com/).
+- **Node.js**: Install Node.js from [Node.js](https://nodejs.org/).
+- **Angular CLI**: Install Angular CLI globally:
+  ```bash
+  npm install -g @angular/cli
+  ```
+- **Docker**: Install Docker from [Docker](https://www.docker.com/).
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+---
 
-## Further help
+## Running the Project
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Using Docker Compose
+
+1. Navigate to the project root directory:
+   ```bash
+   cd /path/to/Assignment
+   ```
+
+2. Build and start the services:
+   ```bash
+   docker-compose up --build
+   ```
+
+3. Access the application:
+   - Backend API: [http://localhost:5265](http://localhost:5265)
+   - Frontend App: [http://localhost:4200](http://localhost:4200)
+
+4. Stop the services:
+   ```bash
+   docker-compose down
+   ```
+
+### Without Docker Compose
+
+#### Backend API
+
+1. Navigate to the backend directory:
+   ```bash
+   cd Assignment.Backend/PracticeApi
+   ```
+
+2. Restore dependencies:
+   ```bash
+   dotnet restore
+   ```
+
+3. Run the API:
+   ```bash
+   dotnet run
+   ```
+
+4. Access the API at [http://localhost:5265](http://localhost:5265).
+
+#### Frontend Application
+
+1. Navigate to the frontend directory:
+   ```bash
+   cd Assignment.Frontend/PracticeApp
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Run the application:
+   ```bash
+   ng serve
+   ```
+
+4. Access the app at [http://localhost:4200](http://localhost:4200).
+
+---
+
+## Testing the API
+
+1. Navigate to the test project directory:
+   ```bash
+   cd Assignment.Backend/PracticeApi.Tests
+   ```
+
+2. Run the tests:
+   ```bash
+   dotnet test
+   ```
+
+---
+
+## License
+
+This project is licensed under the MIT License.
