@@ -40,6 +40,6 @@ public class GetProviderByNpiIdHandler( ILogger<GetProviderByNpiIdHandler> logge
       _logger.LogWarning("No provider found with NPI ID: {Id}", request.NpiId);
     }
 
-    return ApiResponse<GetProviderByNpiIdResponse>.Succeed(new GetProviderByNpiIdResponse(provider!.ToDto()));
+    return ApiResponse<GetProviderByNpiIdResponse>.Succeed(new GetProviderByNpiIdResponse(provider?.ToDto() ?? null));
   }
 }

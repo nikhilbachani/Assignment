@@ -6,4 +6,4 @@ namespace PracticeApi.Features.Providers.GetProviderByNpiId;
 /// Request DTO to get a provider by NPI ID
 /// </summary>
 /// <param name="NpiId"></param>
-public record GetProviderByNpiIdRequest([property: FromRoute] string NpiId);
+public record GetProviderByNpiIdRequest(string NpiId);

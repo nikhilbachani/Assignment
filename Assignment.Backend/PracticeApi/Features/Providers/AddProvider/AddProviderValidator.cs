@@ -20,7 +20,7 @@ public class AddProviderValidator : AbstractValidator<AddProviderRequest>
 
     RuleFor(x => x.LastName)
       .NotEmpty()
-      .WithMessage("First name is required.")
+      .WithMessage("Last name is required.")
       .MaximumLength(50)
       .WithMessage("Last name cannot exceed 50 characters.");
 
