@@ -1,0 +1,67 @@
+<app-visit-details [providerView]="false"></app-visit-details>
+
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Visit Payment</h2>
+
+  <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="paymentMethod" class="form-label">Payment Method</label>
+      <select id="paymentMethod" formControlName="paymentMethod" class="form-select">
+        <option value="cash">Cash</option>
+        <option value="card">Card</option>
+      </select>
+    </div>
+
+    <div *ngIf="paymentForm.get('paymentMethod')?.value === 'card'">
+      <div class="mb-3">
+        <label for="cardNumber" class="form-label">Card Number</label>
+        <input id="cardNumber" formControlName="cardNumber" type="text" class="form-control" placeholder="Enter 16-digit card number" />
+        <div *ngIf="paymentForm.get('cardNumber')?.hasError('required') && paymentForm.get('cardNumber')?.touched" class="text-danger">
+          Card Number is required.
+        </div>
+        <div *ngIf="paymentForm.get('cardNumber')?.hasError('pattern') && paymentForm.get('cardNumber')?.touched" class="text-danger">
+          Card Number is invalid.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="cardExpiry" class="form-label">Expiry Date</label>
+        <input id="cardExpiry" formControlName="cardExpiry" type="text" class="form-control" placeholder="MM/YY" />
+        <div *ngIf="paymentForm.get('cardExpiry')?.hasError('required') && paymentForm.get('cardExpiry')?.touched" class="text-danger">
+          Expiry Date is required.
+        </div>
+        <div *ngIf="paymentForm.get('cardExpiry')?.hasError('pattern') && paymentForm.get('cardExpiry')?.touched" class="text-danger">
+          Expiry Date is invalid.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="cardCVC" class="form-label">CVC</label>
+        <input id="cardCVC" formControlName="cardCVC" type="text" class="form-control" placeholder="3-digit CVC" />
+        <div *ngIf="paymentForm.get('cardCVC')?.hasError('required') && paymentForm.get('cardCVC')?.touched" class="text-danger">
+          CVC is required.
+        </div>
+        <div *ngIf="paymentForm.get('cardCVC')?.hasError('pattern') && paymentForm.get('cardCVC')?.touched" class="text-danger">
+          CVC is invalid.
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100" [disabled]="paymentForm.invalid || isProcessing">
+      <span *ngIf="isProcessing" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+      Submit Payment
+    </button>
+  </form>
+
+  <div *ngIf="isProcessing" class="text-center mt-3">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Processing...</span>
+    </div>
+    <p>Please wait while we process your payment...</p>
+  </div>
+
+  <div *ngIf="paymentSuccess === true && !isProcessing" class="alert alert-success mt-3">
+    Payment successful!
+  </div>
+  <div *ngIf="paymentSuccess === false && !isProcessing" class="alert alert-danger mt-3">
+    Payment failed. Please check your details.
+  </div>
+</div>

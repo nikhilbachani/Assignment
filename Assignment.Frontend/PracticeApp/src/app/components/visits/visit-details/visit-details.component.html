@@ -1,0 +1,20 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Visit Details</h2>
+
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Patient Information</h4>
+    </div>
+    <div class="card-body">
+      <p><strong>Patient Name:</strong> {{ visit!.patientName }}</p>
+      <p><strong>Provider Name:</strong> {{ visit!.providerName }}</p>
+      <p><strong>Visit Time:</strong> {{ visit!.visitTime.substring(0, 5) }}</p>
+      <p *ngIf="!providerView"><strong>Payment Status:</strong> {{ visit!.paymentStatus }}</p>
+    </div>
+  </div>
+
+  <div class="mt-4" *ngIf="providerView">
+    <label for="notes" class="form-label"><strong>Notes</strong></label>
+    <textarea id="notes" class="form-control" rows="5">{{ visit!.notes }}</textarea>
+  </div>
+</div>

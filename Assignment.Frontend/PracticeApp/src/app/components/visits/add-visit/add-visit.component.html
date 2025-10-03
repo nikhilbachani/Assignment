@@ -1,0 +1,39 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Schedule a Visit</h2>
+
+  <div *ngIf="selectedPatient" class="card mb-4">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Selected Patient</h4>
+    </div>
+    <div class="card-body">
+      <p><strong>Patient Name:</strong> {{ selectedPatient.patientName }}</p>
+      <p><strong>Email:</strong> {{ selectedPatient.email }}</p>
+      <p><strong>Phone:</strong> {{ selectedPatient.phone }}</p>
+    </div>
+  </div>
+
+  <form [formGroup]="visitForm" class="needs-validation">
+    <div class="mb-3">
+      <label for="provider" class="form-label">Provider:</label>
+      <select id="provider" formControlName="provider" class="form-select" (ngModelChange)="onProviderChange($event)">
+        <option value="" disabled selected>Select a provider</option>
+        <option *ngFor="let provider of providers$ | async" [value]="provider.providerId">{{ provider.providerName }}</option>
+      </select>
+      <p class="alert alert-danger mt-1" *ngIf="visitForm.get('provider')?.errors?.['required']">Provider is required.</p>
+    </div>
+    <div class="mb-3">
+      <label for="time" class="form-label">Time:</label>
+      <select id="time" formControlName="time" class="form-select">
+        <option value="" disabled selected>Select a time slot</option>
+        <option *ngFor="let time of availableTimeSlots" [value]="time.substring(0, 5)">{{ time.substring(0, 5) }}</option>
+      </select>
+      <div *ngIf="visitForm.get('time')?.invalid && visitForm.get('time')?.touched" class="text-danger">
+        <span *ngIf="visitForm.get('time')?.errors?.['required']">Time is required.</span>
+      </div>
+    </div>
+    <button type="submit" (click)="onSubmit()" class="btn btn-primary w-100">Schedule Visit</button>
+  </form>
+  <div *ngIf="visitBookingError" class="alert alert-danger mt-3">
+    Visit Booking failed. Please check the details.
+  </div>
+</div>

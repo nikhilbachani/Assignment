@@ -1,0 +1,32 @@
+<table>
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th *ngIf="!providerView">Provider</th>
+      <th>Patient</th>
+      <th *ngIf="!providerView">Amount</th>
+      <th *ngIf="!providerView">Payment Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let visit of visits">
+      <td>{{ visit.visitTime.substring(0, 5) }}</td>
+      <td *ngIf="!providerView">{{ visit.providerName }}</td>
+      <td>{{ visit.patientName }}</td>
+      <td *ngIf="!providerView">{{ visit.visitAmount| currency }}</td>
+      <td *ngIf="!providerView">{{ visit.paymentStatus }}</td>
+      <td>
+        <a [routerLink]="['/visit-details']" (click)="setVisitData(visit)">View</a>&nbsp;
+        <a *ngIf="!providerView" [routerLink]="['/visit-invoice']" (click)="setVisitData(visit)">Invoice</a>&nbsp;
+        <a *ngIf="!providerView && visit.paymentStatus === 'Pending'" [routerLink]="['/visit-payment']" (click)="setVisitData(visit)">Pay Now</a>
+        <a *ngIf="!providerView && visit.paymentStatus === 'Completed'" [routerLink]="['/visit-receipt']" (click)="setVisitData(visit)">Receipt</a>
+      </td>
+    </tr>
+    <tr *ngIf="!providerView">
+      <td colspan="6" class="add-appointment">
+        <a [routerLink]="['/patient']">&plus; Add Appointment</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

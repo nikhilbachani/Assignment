@@ -1,0 +1,17 @@
+/* Styles for Visit Receipt Component */
+.visit-receipt {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.visit-receipt h2 {
+  margin-bottom: 20px;
+}
+
+.receipt-info p {
+  margin: 5px 0;
+}

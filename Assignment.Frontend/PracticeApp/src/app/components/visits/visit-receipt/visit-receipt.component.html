@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white text-center">
+      <h2>Visit Receipt</h2>
+    </div>
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <p><strong>Visit Date:</strong> {{ visit!.visitDate }}</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Patient Name:</strong> {{ visit!.patientName }}</p>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <p><strong>Provider Name:</strong> {{ visit!.providerName }}</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Receipt Number:</strong> {{ visit!.receiptIdentifier }}</p>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <p><strong>Payment Date:</strong> {{ visit!.paymentDate }}</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Amount Paid:</strong> {{ visit!.visitAmount | currency }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <p><strong>Payment Method:</strong> {{ visit!.paymentMethod }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Search Patient</h2>
+  <form [formGroup]="searchForm" class="mb-0">
+    <div class="mb-0 input-group">
+      <input id="searchText" formControlName="searchText" type="text" class="form-control" placeholder="Enter patient name or email"/>
+      <button class="btn btn-primary" (click)="onSearch()" [disabled]="isLoading || searchForm.get('searchText')?.value.length < 3">Search</button>
+    </div>
+    <p *ngIf="searchForm.get('searchText')?.value.length < 3" class="text-danger">Please enter at least 3 characters to search.</p>
+  </form>
+
+  <div *ngIf="isLoading" class="text-center mt-4">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && (filteredPatients$ | async)?.length !== 0" class="mt-0">
+    <table class="table">
+      <tbody>
+        <tr *ngFor="let patient of filteredPatients$ | async" (click)="selectPatient(patient)">
+          <td>{{ patient.patientName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p *ngIf="!isLoading && (filteredPatients$ | async)?.length === 0" class="text-muted mt-4">No patients found.</p>
+</div>

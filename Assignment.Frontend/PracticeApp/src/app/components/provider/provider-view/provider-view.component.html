@@ -1,0 +1,16 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Provider's Scheduled Visits</h2>
+  <select id="provider" class="form-select" [(ngModel)]="selectedProviderId" (ngModelChange)="onProviderChange($event)">
+    <option value="" disabled selected>Select a provider</option>
+    <option *ngFor="let provider of providers$ | async" [value]="provider.providerId">
+      {{ provider.providerName }}
+    </option>
+  </select>
+  <div *ngIf="!selectedProviderId" class="alert alert-warning mt-3">
+    Please select a provider.
+  </div>
+
+  <div class="mt-2">
+    <app-visits-table *ngIf="selectedProviderId" [visits]="visits" [providerView]="true"></app-visits-table>
+  </div>
+</div>

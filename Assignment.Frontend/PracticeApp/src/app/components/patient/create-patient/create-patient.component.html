@@ -1,0 +1,62 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Create Patient</h2>
+  <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="firstName" class="form-label">First Name</label>
+      <input id="firstName" formControlName="firstName" type="text" class="form-control" maxlength="50" placeholder="Enter first name" autofocus />
+      <div *ngIf="patientForm.get('firstName')?.invalid && patientForm.get('firstName')?.touched" class="text-danger">
+        First Name is required.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="lastName" class="form-label">Last Name</label>
+      <input id="lastName" formControlName="lastName" type="text" class="form-control" maxlength="50" placeholder="Enter last name" />
+      <div *ngIf="patientForm.get('lastName')?.invalid && patientForm.get('lastName')?.touched" class="text-danger">
+        Last Name is required.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input id="email" formControlName="email" type="email" class="form-control" placeholder="Enter email" />
+      <div *ngIf="patientForm.get('email')?.invalid && patientForm.get('email')?.touched" class="text-danger">
+        <span *ngIf="patientForm.get('email')?.errors?.['required']">Email is required.</span>
+        <span *ngIf="patientForm.get('email')?.errors?.['email']">Invalid email format.</span>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="ssn" class="form-label">SSN</label>
+      <input id="ssn" formControlName="ssn" type="text" class="form-control" placeholder="123-45-6789" />
+      <div *ngIf="patientForm.get('ssn')?.invalid && patientForm.get('ssn')?.touched" class="text-danger">
+        <span *ngIf="patientForm.get('ssn')?.errors?.['required']">SSN is required.</span>
+        <span *ngIf="patientForm.get('ssn')?.errors?.['pattern']">Invalid SSN format.</span>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone Number</label>
+      <input id="phone" formControlName="phone" type="tel" class="form-control" placeholder="(123) 456-7890" />
+      <div *ngIf="patientForm.get('phone')?.invalid && patientForm.get('phone')?.touched" class="text-danger">
+        <span *ngIf="patientForm.get('phone')?.errors?.['required']">Phone Number is required.</span>
+        <span *ngIf="patientForm.get('phone')?.errors?.['pattern']">Invalid Phone Number format.</span>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="dob" class="form-label">Date of Birth</label>
+      <input id="dob" formControlName="dob" type="date" class="form-control" placeholder="yyyy-mm-dd" />
+      <div *ngIf="patientForm.get('dob')?.invalid && patientForm.get('dob')?.touched" class="text-danger">
+        <span *ngIf="patientForm.get('dob')?.errors?.['required']">Date of Birth is required.</span>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="isLoading">Next</button>
+  </form>
+
+  <!-- Spinner -->
+  <div *ngIf="isLoading" class="text-center mt-4">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="showError" class="alert alert-danger mt-3">
+    Patient Creation failed. Please check the details.
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="patient-tabs-container">
+  <div class="tabs">
+    <button class="tab-button" [class.active]="activeTab === 'search'" (click)="setActiveTab('search')">Search Patient</button>
+    <button class="tab-button" [class.active]="activeTab === 'create'" (click)="setActiveTab('create')">Create Patient</button>
+  </div>
+
+  <div class="tab-content" *ngIf="activeTab === 'search'">
+    <app-search-patient></app-search-patient>
+  </div>
+
+  <div class="tab-content" *ngIf="activeTab === 'create'">
+    <app-create-patient></app-create-patient>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Visit Invoice</h2>
+
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Invoice Details</h4>
+    </div>
+    <div class="card-body">
+      <p><strong>Patient:</strong> {{ visit.patientName }}</p>
+      <p><strong>Provider:</strong> {{ visit.providerName }}</p>
+      <p><strong>Time:</strong> {{ visit.visitTime.substring(0, 5) }}</p>
+      <p><strong>Payment Status:</strong> {{ visit.paymentStatus }}</p>
+    </div>
+    <div class="card-footer text-end">
+      <button class="btn btn-success" *ngIf="visit.paymentStatus === 'Pending'" (click)="takePayment()">Take Payment</button>
+      <button class="btn btn-success" *ngIf="visit.paymentStatus === 'Paid'" (click)="viewReceipt()">View Receipt</button>
+    </div>
+  </div>
+</div>

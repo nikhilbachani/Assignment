@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  practiceapi:
+    build:
+      context: ./Assignment.Backend/PracticeApi
+    ports:
+      - "5265:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  practiceapp:
+    build:
+      context: ./Assignment.Frontend/PracticeApp
+    ports:
+      - "4200:80"
+    depends_on:
+      - practiceapi

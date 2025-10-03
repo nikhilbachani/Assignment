@@ -1,0 +1,53 @@
+.search-patient-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+form {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+table {
+  border: 1px solid #ddd;
+}
+
+td {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+}
+
+td:hover {
+  background-color: #e0f7fa;
+  cursor: pointer;
+}
+
+#searchButton, #searchText {
+  display: inline-block;
+}
+
+#searchText {
+  width: 70%;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
