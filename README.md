@@ -108,7 +108,7 @@ Assignment/
 
 1. Navigate to the test project directory:
    ```bash
-   cd Assignment.Backend/PracticeApi.Tests
+   cd Assignment.Backend/PracticeApiTests
    ```
 
 2. Run the tests:
