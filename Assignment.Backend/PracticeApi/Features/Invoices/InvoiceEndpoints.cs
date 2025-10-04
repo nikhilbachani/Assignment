@@ -51,7 +51,7 @@ public static class InvoiceEndpoints
 
     if (!response.Success)
     {
-      return Results.BadRequest(response.Errors);
+      return Results.InternalServerError(response.Errors);
     }
 
     return Results.Ok(response.Body);

@@ -54,9 +54,10 @@ public static class PracticeDbExtensions
   /// <param name="services">The service collection.</param>
   public static void AddDbRepositories(this IServiceCollection services)
   {
-      services.AddScoped<IInvoiceRepository, InvoiceRepository>();
-      services.AddScoped<IPatientRepository, PatientRepository>();
-      services.AddScoped<IProviderRepository, ProviderRepository>();
-      services.AddScoped<IVisitRepository, VisitRepository>();
+    services.AddScoped<IImportJobRepository, ImportJobRepository>();
+    services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+    services.AddScoped<IPatientRepository, PatientRepository>();
+    services.AddScoped<IProviderRepository, ProviderRepository>();
+    services.AddScoped<IVisitRepository, VisitRepository>();
   }
 }

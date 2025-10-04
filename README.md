@@ -13,6 +13,7 @@ Assignment/
 │   └── PracticeApiTests/     # Unit tests for the API
 ├── Assignment.Frontend/      # Frontend application built with Angular
 │   └── PracticeApp/          # Angular application
+├── TestData/                 # Test data
 └── docker-compose.yml        # Docker Compose configuration
 ```
 
@@ -24,6 +25,7 @@ Assignment/
 - **Invoice Management**: View and manage visit invoices.
 - **Provider-Specific View**: Providers can view their scheduled visits.
 - **Reusable Components**: Components like the visits table are reusable across views.
+- **Bulk Import Patients**: A background service for bulk importing patients from a CSV file.
 
 ---
 
@@ -115,6 +117,19 @@ Assignment/
    ```bash
    dotnet test
    ```
+
+---
+
+## Bulk Import Patients
+
+The API includes a background service for bulk importing patients from a CSV file. To test this functionality:
+
+1. Place your CSV file in the `TestData/` directory (or another directory). A sample CSV file is provided in `TestData/sample-patients.csv`.
+2. Ensure the CSV file has the following headers:
+   ```csv
+   FirstName,LastName,DOB,Email,Phone,SSN
+   ```
+3. Use the `/api/patients/bulk-import` endpoint to upload the file.
 
 ---
 

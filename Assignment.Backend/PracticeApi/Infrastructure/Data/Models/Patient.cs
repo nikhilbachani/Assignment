@@ -1,3 +1,5 @@
+using CsvHelper.Configuration.Attributes;
+
 namespace PracticeApi.Infrastructure.Data.Models;
 
 /// <summary>
@@ -8,6 +10,7 @@ public class Patient
   /// <summary>
   /// Gets or sets the unique ID for the patient
   /// </summary>
+  [Ignore]
   public int Id { get; set; }
 
   /// <summary>

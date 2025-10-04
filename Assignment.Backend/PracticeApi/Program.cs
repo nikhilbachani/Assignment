@@ -9,6 +9,7 @@ using PracticeApi.Features.Invoices.PayInvoice;
 using PracticeApi.Features.Patients;
 using PracticeApi.Features.Patients.AddPatient;
 using PracticeApi.Features.Patients.GetPatientById;
+using PracticeApi.Features.Patients.ImportPatients;
 using PracticeApi.Features.Patients.SearchPatient;
 using PracticeApi.Features.Providers;
 using PracticeApi.Features.Providers.AddProvider;
@@ -20,6 +21,7 @@ using PracticeApi.Features.Visits.AddVisit;
 using PracticeApi.Features.Visits.GetAvailableSlots;
 using PracticeApi.Features.Visits.GetVisitById;
 using PracticeApi.Features.Visits.GetVisitsByDate;
+using PracticeApi.Infrastructure.BackgroundServices;
 using PracticeApi.Infrastructure.Data;
 using PracticeApi.Infrastructure.Security;
 using PracticeApi.Middleware;
@@ -31,28 +33,28 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
-    {
-        policy.AllowAnyOrigin()
-              .WithMethods("GET", "POST", "PUT")
-              .AllowAnyHeader();
-    });
+  options.AddPolicy("AllowAll", policy =>
+  {
+    policy.AllowAnyOrigin()
+          .WithMethods("GET", "POST", "PUT")
+          .AllowAnyHeader();
+  });
 });
 
 // Configure JSON options to serialize enums as strings
 builder.Services.Configure<JsonOptions>(options =>
 {
-    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+  options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
 // Generate Key and IV for symmetric AES encryption at app startup
 using (var aes = Aes.Create())
 {
-    var key = aes.Key;
-    var iv = aes.IV;
+  var key = aes.Key;
+  var iv = aes.IV;
 
-    // Register EncryptionService as a singleton
-    builder.Services.AddSingleton<IEncryptionService>(new EncryptionService(key, iv));
+  // Register EncryptionService as a singleton
+  builder.Services.AddSingleton<IEncryptionService>(new EncryptionService(key, iv));
 }
 
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
@@ -65,6 +67,7 @@ builder.Services.AddScoped<IGetProvidersHandler, GetProvidersHandler>();
 builder.Services.AddScoped<IAddPatientHandler, AddPatientHandler>();
 builder.Services.AddScoped<IGetPatientByIdHandler, GetPatientByIdHandler>();
 builder.Services.AddScoped<ISearchPatientHandler, SearchPatientHandler>();
+builder.Services.AddScoped<IImportPatientsHandler, ImportPatientsHandler>();
 builder.Services.AddScoped<IAddVisitHandler, AddVisitHandler>();
 builder.Services.AddScoped<IGetAvailableSlotsHandler, GetAvailableSlotsHandler>();
 builder.Services.AddScoped<IGetVisitByIdHandler, GetVisitByIdHandler>();
@@ -72,6 +75,7 @@ builder.Services.AddScoped<IGetVisitsByDateHandler, GetVisitsByDateHandler>();
 
 builder.Services.AddPracticeDb();
 builder.Services.AddDbRepositories();
+builder.Services.AddBackgroundServices();
 
 var app = builder.Build();
 
@@ -80,13 +84,13 @@ app.UseCors("AllowAll");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi("/docs");
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/docs", "Practice API V1");
-    });
+  app.MapOpenApi("/docs");
+  app.UseSwaggerUI(c =>
+  {
+    c.SwaggerEndpoint("/docs", "Practice API V1");
+  });
 
-    app.UseDeveloperExceptionPage();
+  app.UseDeveloperExceptionPage();
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();

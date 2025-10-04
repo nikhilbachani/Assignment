@@ -35,6 +35,11 @@ public class PracticeDbContext(DbContextOptions<PracticeDbContext> options) : Db
   /// </summary>
   public DbSet<Receipt> Receipts { get; set; } = null!;
 
+  /// <summary>
+  /// Gets or sets the ImportJobs DbSet
+  /// </summary>
+  public DbSet<ImportJob> ImportJobs { get; set; } = null!;
+
   /// <inheritdoc cref="DbContext.OnModelCreating"/>
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PracticeApi.Features.Patients.AddPatient;
 using PracticeApi.Features.Patients.GetPatientById;
+using PracticeApi.Features.Patients.ImportPatients;
 using PracticeApi.Features.Patients.SearchPatient;
 using PracticeApi.Shared;
 
@@ -38,6 +39,14 @@ public static class PatientEndpoints
       .WithName("AddPatient")
       .Produces<ApiResponse<AddPatientResponse>>(StatusCodes.Status201Created)
       .Produces<ApiResponse>(StatusCodes.Status400BadRequest);
+
+    patientEndpoints
+      .MapPost("/bulk-import", async (IFormFile file, [FromServices] IImportPatientsHandler handler, CancellationToken cancellationToken) => await BulkImportPatients(file, handler, cancellationToken))
+      .WithName("BulkImportPatients")
+      .Accepts<IFormFile>("multipart/form-data")
+      .DisableAntiforgery()
+      .Produces<ApiResponse<ImportPatientsResponse>>(StatusCodes.Status200OK)
+      .Produces<ApiResponse>(StatusCodes.Status400BadRequest);
   }
 
   #region Endpoint Handlers
@@ -71,6 +80,18 @@ public static class PatientEndpoints
     var response = await handler.Handle(request, cancellationToken);
 
     return Results.Created($"/api/patients/{response.Body?.PatientId}", response.Body);
+  }
+
+  private static async Task<IResult> BulkImportPatients(IFormFile file, IImportPatientsHandler handler, CancellationToken cancellationToken = default)
+  {
+    var response = await handler.Handle(new ImportPatientsRequest(file), cancellationToken);
+
+    if (!response.Success || response.Body == null)
+    {
+      return Results.InternalServerError(response);
+    }
+
+    return Results.Ok(response.Body);
   }
 
   #endregion
